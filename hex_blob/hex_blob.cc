@@ -27,7 +27,7 @@ static const size_t kDigitBufferSize = sizeof("0x00");
 
 void WriteDigit(const uint8_t byte, std::string* dest) {
   if ( dest != NULL ) {
-    char tmp[sizeof(kDigitBufferSize)];
+    char tmp[kDigitBufferSize];
     snprintf(tmp, sizeof(tmp), kHexFormat, byte);
     *dest += tmp;
   }
