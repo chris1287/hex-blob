@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 2.6)
 
 project(hex-blob)
 
+set(CMAKE_CXX_FLAGS_COMMON "-std=c++0x -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_COMMON} -O0 -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_COMMON} -O2")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS_RELEASE})
+
 add_subdirectory(sample)
 add_subdirectory(hex_blob)
 
