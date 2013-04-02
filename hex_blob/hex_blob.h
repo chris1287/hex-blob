@@ -13,17 +13,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "hex_blob/hex_blob.h"
-#include "hex_blob/version.h"
+#ifndef HEX_BLOB_HEX_BLOB_H_
+#define HEX_BLOB_HEX_BLOB_H_
+
 #include <cstdint>
-#include <cstdio>
 #include <string>
 
-int main() {
-  fprintf(stdout, "Running hex-blob version %s\n", kVersionStr.c_str());
+std::string ConvertBlobToHex(const uint8_t* blob, const size_t blob_length);
 
-  uint8_t blob[] = {0xD, 0xE, 0xA, 0xD};
-  fprintf(stdout, "'%s'\n", ConvertBlobToHex(blob, sizeof(blob)).c_str());
-
-  return 0;
-}
+#endif  // HEX_BLOB_HEX_BLOB_H_

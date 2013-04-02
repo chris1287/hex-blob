@@ -13,23 +13,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef HEX_BLOB_H // NOLINT
-#define HEX_BLOB_H
-
+#include "hex_blob/hex_blob.h"
 #include <cstdint>
 #include <cstdio>
 #include <string>
 
+
+void WriteDigit(const uint8_t byte, std::string* destination);
+
+void WriteDigit(const uint8_t byte, std::string* dest) {
+  if ( dest != NULL ) {
+    char tmp[sizeof("0x00")];
+    snprintf(tmp, sizeof(tmp), "0x%02X", byte);
+    *dest += tmp;
+  }
+}
+
 std::string ConvertBlobToHex(const uint8_t* blob, const size_t blob_length) {
-  if (NULL == blob || blob_length == 0) {
+  if (blob == NULL || blob_length == 0) {
     return std::string("");
   }
 
   std::string hex;
   for (size_t i = 0; i < blob_length; ++i) {
-    char tmp[sizeof("0x00")];
-    snprintf(tmp, sizeof(tmp), "0x%02X", blob[i]);
-    hex += tmp;
+    WriteDigit(blob[i], &hex);
     if (i != blob_length-1) {
       hex += " ";
     }
@@ -38,4 +45,3 @@ std::string ConvertBlobToHex(const uint8_t* blob, const size_t blob_length) {
   return hex;
 }
 
-#endif /* HEX_BLOB_H */ // NOLINT
