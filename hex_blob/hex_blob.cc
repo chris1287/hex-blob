@@ -19,12 +19,16 @@
 #include <string>
 
 
-void WriteDigit(const uint8_t byte, std::string* destination);
+static void WriteDigit(const uint8_t byte, std::string* destination);
+
+static const char*  kHexFormat       = "0x%02X";
+static const char*  kHexPadding      = " ";
+static const size_t kDigitBufferSize = sizeof("0x00");
 
 void WriteDigit(const uint8_t byte, std::string* dest) {
   if ( dest != NULL ) {
-    char tmp[sizeof("0x00")];
-    snprintf(tmp, sizeof(tmp), "0x%02X", byte);
+    char tmp[sizeof(kDigitBufferSize)];
+    snprintf(tmp, sizeof(tmp), kHexFormat, byte);
     *dest += tmp;
   }
 }
@@ -38,7 +42,7 @@ std::string ConvertBlobToHex(const uint8_t* blob, const size_t blob_length) {
   for (size_t i = 0; i < blob_length; ++i) {
     WriteDigit(blob[i], &hex);
     if (i != blob_length-1) {
-      hex += " ";
+      hex += kHexPadding;
     }
   }
 
