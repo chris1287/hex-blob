@@ -26,3 +26,11 @@ foreach(SRC_FILE ${ALL_SRC})
   list(APPEND cpplint_out_files ${SRC_FILE}.out)
 endforeach()
 add_custom_target(cpplint DEPENDS ${cpplint_out_files})
+
+
+set(CPPCHECK_CMD cppcheck -q --enable=all --error-exitcode=1)
+add_custom_command(
+  OUTPUT  cppcheck.out
+  COMMAND ${CPPCHECK_CMD} ${PROJECT_SOURCE_DIR}
+)
+add_custom_target(cppcheck DEPENDS cppcheck.out)
