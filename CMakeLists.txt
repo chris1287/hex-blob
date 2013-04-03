@@ -11,8 +11,18 @@ execute_process(COMMAND git describe --tags OUTPUT_VARIABLE VERSION)
 string(REGEX REPLACE "\n" "" VERSION "${VERSION}")
 set( VERSION_STR \"${VERSION}\" )
 message( "Got version: " ${VERSION_STR} )
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/hex_blob/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/hex_blob/version.h)
 
 add_subdirectory(sample)
 add_subdirectory(hex_blob)
 
-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/hex_blob/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/hex_blob/version.h)
+file(GLOB_RECURSE ALL_SRC *.cc *.h)
+set(CPPLINT_CMD /opt/cpplint.py)
+foreach(SRC_FILE ${ALL_SRC})
+  add_custom_command(
+    OUTPUT  ${SRC_FILE}.out
+    COMMAND ${CPPLINT_CMD} ${SRC_FILE}
+    )
+  list(APPEND cpplint_out_files ${SRC_FILE}.out)
+endforeach()
+add_custom_target(cpplint DEPENDS ${cpplint_out_files})

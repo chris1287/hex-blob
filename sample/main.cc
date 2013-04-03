@@ -13,11 +13,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "hex_blob/hex_blob.h"
-#include "hex_blob/version.h"
 #include <cstdint>
 #include <cstdio>
 #include <string>
+#include "hex_blob/hex_blob.h"
+#include "hex_blob/version.h"
 
 int main() {
   fprintf(stdout, "Running hex-blob version %s\n", kVersionStr.c_str());
