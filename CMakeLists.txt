@@ -28,7 +28,7 @@ endforeach()
 add_custom_target(cpplint DEPENDS ${cpplint_out_files})
 
 
-set(CPPCHECK_CMD cppcheck -q --enable=all --error-exitcode=1)
+set(CPPCHECK_CMD cppcheck --enable=all --error-exitcode=1 -i${CMAKE_CURRENT_BINARY_DIR})
 add_custom_command(
   OUTPUT  cppcheck.out
   COMMAND ${CPPCHECK_CMD} ${PROJECT_SOURCE_DIR}
