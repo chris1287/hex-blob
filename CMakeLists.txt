@@ -15,26 +15,6 @@ set( VERSION_STR \"${VERSION}\" )
 message( "Got version: " ${VERSION_STR} )
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/hex_blob/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/hex_blob/version.h)
 
-# Google test framework (built from source)
-include(ExternalProject)
-set(THIRD_PARTY_DIR ${CMAKE_BINARY_DIR})
-ExternalProject_Add(
-  GoogleTest
-  PREFIX  ${CMAKE_BINARY_DIR}/GoogleTest
-  DOWNLOAD_DIR ${THIRD_PARTY_DIR}/GoogleTest
-  URL http://googletest.googlecode.com/files/gtest-1.6.0.zip
-  URL_MD5 4577b49f2973c90bf9ba69aa8166b786
-  CMAKE_ARGS 	-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${THIRD_PARTY_DIR}/libs/gtest
-        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${THIRD_PARTY_DIR}/libs/gtest
-        -DCMAKE_TOOLCHAIN_FILE:PATH=${CMAKE_TOOLCHAIN_FILE}
-        -DCMAKE_C_FLAGS:STRING=${CMAKE_C_FLAGS}
-        -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS}
-  INSTALL_COMMAND ""
-)
-SET(GTEST_DIR "${CMAKE_BINARY_DIR}/GoogleTest/src/GoogleTest")
-SET(GTEST_INCLUDE_DIR "${GTEST_DIR}/include")
-SET(GTEST_LIB_DIR "${THIRD_PARTY_DIR}/libs/gtest")
-
 # Testing
 enable_testing()
 
